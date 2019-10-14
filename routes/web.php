@@ -26,5 +26,6 @@ Route::resource('/users', 'UserController');
 Route::prefix('admin')->namespace('Admin')->group(function(){
 
 	Route::resource('posts', 'PostController');
+	Route::resource('categories', 'CategoryController');
 
 });

@@ -2,23 +2,32 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Post;
 
 class PostController extends Controller
 {
+	/**
+	 * @var Post
+	 */
+	private $post;
+
+	public function __construct(Post $post)
+	{
+		$this->post = $post;
+	}
+
 	public function index()
 	{
-		$posts = Post::paginate(15);
+		$posts = $this->post->paginate(15);
 
 		return view('posts.index', compact('posts'));
 	}
 
-	public function show($id)
+	public function show(Post $post)
 	{
-		$post = Post::findOrFail($id);
-
 		return view('posts.edit', compact('post'));
 	}
 
@@ -29,50 +38,66 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-//		if($request->hasAny(['title', 'content', 'slug'])) {
-//			var_dump($request->except(['title']));
-//		}
-//
-//		return back()->withInput();
+    	$data = $request->all();
+	    try{
+	        $data['is_active'] = true;
 
-//	  Salvando com active record
-//    $data = $request->all();
-//
-//	    $post = new Post();
-//
-//	    $post->title       = $data['title'];
-//	    $post->description = $data['description'];
-//	    $post->content     = $data['content'];
-//	    $post->slug        = $data['slug'];
-//	    $post->is_active   = true;
-//	    $post->user_id     = 1;
-//
-//	    dd($post->save());
+		    $user = User::find(1);
+			$user->posts()->create($data);
 
-	    //Salvando com mass assignment
-        $data = $request->all();
-	    $data['is_active'] = true;
+			flash('Postagem inserida com sucesso!')->success();
+			return redirect()->route('posts.index');
 
-	    $user = Post::find(1);
-		$user->posts()->create($data);
+	    } catch (\Exception $e) {
+		    $message = 'Erro ao remover categoria!';
 
-		return redirect()->route('posts.index');
+		    if(env('APP_DEBUG')) {
+			    $message = $e->getMessage();
+		    }
+
+		    flash($message)->warning();
+		    return redirect()->back();
+	    }
     }
 
-    public function update($id, Request $request)
-    {
-	    //Salvando com mass assignment
+    public function update(Post $post, Request $request) {
 	    $data = $request->all();
 
-	    $post = Post::findOrFail($id);
+		try{
+			$post->update($data);
 
-	    dd($post->update($data));
+		    flash('Postagem atualizada com sucesso!')->success();
+		    return redirect()->route('posts.show', ['post' => $post->id]);
+
+        } catch (\Exception $e) {
+		    $message = 'Erro ao remover categoria!';
+
+		    if(env('APP_DEBUG')) {
+			    $message = $e->getMessage();
+		    }
+
+		    flash($message)->warning();
+		    return redirect()->back();
+	    }
     }
 
-	public function destroy($id)
+	public function destroy(Post $post)
 	{
-		$post = Post::findOrFail($id);
+		try {
+			$post->delete($post);
 
-		dd($post->delete());
+			flash('Postagem removida com sucesso!')->success();
+			return redirect()->route('posts.index');
+
+		} catch (\Exception $e) {
+			$message = 'Erro ao remover categoria!';
+
+			if(env('APP_DEBUG')) {
+				$message = $e->getMessage();
+			}
+
+			flash($message)->warning();
+			return redirect()->back();
+		}
 	}
 }
