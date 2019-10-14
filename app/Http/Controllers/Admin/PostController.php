@@ -26,14 +26,11 @@ class PostController extends Controller
 		return view('posts.index', compact('posts'));
 	}
 
-	public function show(Post $post)
-	{
-		return view('posts.edit', compact('post'));
-	}
-
     public function create()
     {
-		return view('posts.create');
+    	$categories = \App\Category::all(['id', 'name']);
+
+		return view('posts.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -43,7 +40,10 @@ class PostController extends Controller
 	        $data['is_active'] = true;
 
 		    $user = User::find(1);
-			$user->posts()->create($data);
+
+		    $post = $user->posts()->create($data);
+			$post->categories()->sync($data['categories']);
+
 
 			flash('Postagem inserida com sucesso!')->success();
 			return redirect()->route('posts.index');
@@ -60,11 +60,21 @@ class PostController extends Controller
 	    }
     }
 
-    public function update(Post $post, Request $request) {
+	public function show(Post $post)
+	{
+		$categories = \App\Category::all(['id', 'name']);
+
+		return view('posts.edit', compact('post', 'categories'));
+	}
+
+
+	public function update(Post $post, Request $request)
+	{
 	    $data = $request->all();
 
 		try{
 			$post->update($data);
+			$post->categories()->sync($data['categories']);
 
 		    flash('Postagem atualizada com sucesso!')->success();
 		    return redirect()->route('posts.show', ['post' => $post->id]);

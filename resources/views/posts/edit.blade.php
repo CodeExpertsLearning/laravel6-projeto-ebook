@@ -26,7 +26,25 @@
             <input type="text" name="slug" class="form-control" value="{{$post->slug}}">
         </div>
 
-        <button class="btn btn-lg btn-success">Atualizar Postagem</button>
+        <div class="form-group">
+            <label>Categorias</label>
+            <div class="row">
+                @foreach($categories  as $c)
+                    <div class="col-2 checkbox">
+                        <label>
+                            <input type="checkbox" name="categories[]" value="{{$c->id}}"
+                                @if($post->categories->contains($c)) checked @endif
+                            > {{$c->name}}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-lg btn-success">Atualizar Postagem</button>
+        </div>
+
     </form>
     <hr>
     <form action="{{route('posts.destroy', ['post' => $post->id])}}" method="post">
