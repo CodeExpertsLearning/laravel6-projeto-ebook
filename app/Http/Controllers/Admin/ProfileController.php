@@ -34,6 +34,12 @@ class ProfileController extends Controller
 
             $user = auth()->user();
 
+            if($request->hasFile('avatar')) {
+	            $profileData['avatar'] = $request->file('avatar')->store('avatars', 'public');
+            } else {
+            	unset($profileData['avatar']);
+            }
+
             $user->update($userData);
 
             $user->profile()->update($profileData);
