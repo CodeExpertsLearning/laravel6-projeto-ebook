@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{route('posts.store')}}" method="post">
+    <form action="{{route('posts.store')}}" method="post" enctype="multipart/form-data">
 
         @csrf
 
@@ -23,6 +23,11 @@
         <div class="form-group">
             <label>Slug</label>
             <input type="text" name="slug" class="form-control" value="{{old('slug')}}">
+        </div>
+
+        <div class="form-group">
+            <label>Foto de Capa</label>
+            <input type="file" name="thumb">
         </div>
 
         <div class="form-group">

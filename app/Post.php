@@ -12,7 +12,8 @@ class Post extends Model
 	    'content',
 	    'slug',
 	    'is_active',
-	    'user_id'
+	    'user_id',
+	    'thumb'
     ];
 
 	public function user()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProfileController extends Controller
@@ -35,6 +36,8 @@ class ProfileController extends Controller
             $user = auth()->user();
 
             if($request->hasFile('avatar')) {
+	            Storage::disk('public')->delete($user->avatar);
+
 	            $profileData['avatar'] = $request->file('avatar')->store('avatars', 'public');
             } else {
             	unset($profileData['avatar']);
