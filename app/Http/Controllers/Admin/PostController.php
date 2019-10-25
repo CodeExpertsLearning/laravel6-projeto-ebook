@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\User;
+use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Post;
@@ -34,7 +34,7 @@ class PostController extends Controller
 		return view('posts.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
     	$data = $request->all();
 	    try{
@@ -75,7 +75,7 @@ class PostController extends Controller
 	}
 
 
-	public function update(Post $post, Request $request)
+	public function update(Post $post, PostRequest $request)
 	{
 	    $data = $request->all();
 
