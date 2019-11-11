@@ -8,7 +8,13 @@
 
         <div class="form-group">
             <label>Nome</label>
-            <input type="text" name="name" class="form-control" value="{{$category->name}}">
+            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{$category->name}}">
+
+            @error('name')
+                <p class="invalid-feedback">
+                    {{$message}}
+                </p>
+            @enderror
         </div>
 
         <div class="form-group">

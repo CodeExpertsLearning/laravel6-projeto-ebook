@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -41,13 +42,14 @@ class CategoryController extends Controller
 	    return view('categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param CategoryRequest $request
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+    public function store(CategoryRequest $request)
     {
     	$data = $request->all();
 
@@ -91,14 +93,15 @@ class CategoryController extends Controller
         return redirect()->route('categories.show', ['category' => $category->id]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Category $category)
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param CategoryRequest $request
+	 * @param  \App\Category $category
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+    public function update(CategoryRequest $request, Category $category)
     {
 	    $data = $request->all();
 

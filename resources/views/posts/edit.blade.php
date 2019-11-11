@@ -8,17 +8,26 @@
 
         <div class="form-group">
             <label>Titulo</label>
-            <input type="text" name="title" class="form-control" value="{{$post->title}}">
+            <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{$post->title}}">
+            @error('title')
+                <p class="invalid-feedback">{{$message}}</p>
+            @enderror
         </div>
 
         <div class="form-group">
             <label>Descrição</label>
-            <input type="text" name="description" class="form-control" value="{{$post->description}}">
+            <input type="text" name="description" class="form-control  @error('description') is-invalid @enderror" value="{{$post->description}}">
+            @error('description')
+                <p class="invalid-feedback">{{$message}}</p>
+            @enderror
         </div>
 
         <div class="form-group">
             <label>Conteúdo</label>
-            <textarea name="content" id="" cols="30" rows="10" class="form-control">{{$post->content}}</textarea>
+            <textarea name="content" id="" cols="30" rows="10" class="form-control  @error('content') is-invalid @enderror">{{$post->content}}</textarea>
+            @error('content')
+                <p class="invalid-feedback">{{$message}}</p>
+            @enderror
         </div>
 
         <div class="form-group">
@@ -28,7 +37,10 @@
 
         <div class="form-group">
             <label>Foto de Capa</label>
-            <input type="file" name="thumb">
+            <input type="file" name="thumb" class="form-control  @error('thumb') is-invalid @enderror">
+            @error('thumb')
+                <p class="invalid-feedback">{{$message}}</p>
+            @enderror
         </div>
 
         <div class="form-group">
