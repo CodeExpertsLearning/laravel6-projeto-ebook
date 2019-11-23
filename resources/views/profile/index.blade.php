@@ -7,12 +7,23 @@
 
         <div class="form-group">
             <label>Nome</label>
-            <input type="text" name="user[name]" class="form-control" value="{{$user->name}}">
+            <input type="text" name="user[name]" class="form-control @error('user.name') is-invalid @enderror" value="{{$user->name}}">
+            @error('user.name')
+                <div class="invalid-feedback">
+                    {{$message}}
+                </div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label>E-mail</label>
-            <input type="text" name="user[email]" class="form-control" value="{{$user->email}}">
+            <input type="text" name="user[email]" class="form-control @error('user.email') is-invalid @enderror" value="{{$user->email}}">
+
+            @error('user.email')
+                <div class="invalid-feedback">
+                    {{$message}}
+                </div>
+            @enderror
         </div>
 
         <div class="form-group">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\UserProfileRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -20,7 +21,7 @@ class ProfileController extends Controller
         return view('profile.index', compact('user'));
     }
 
-    public function update(Request $request)
+    public function update(UserProfileRequest $request)
     {
         $userData = $request->get('user');
         $profileData = $request->get('profile');

@@ -45,14 +45,15 @@
 
         <div class="form-group">
             <label>Categorias</label>
-            <div class="row">
+            <div class="form-group">
                 @foreach($categories  as $c)
-                    <div class="col-2 checkbox">
-                        <label>
-                            <input type="checkbox" name="categories[]" value="{{$c->id}}"
-                                @if($post->categories->contains($c)) checked @endif
-                            > {{$c->name}}
+                    <div class="col-2 custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input @error('categories') is-invalid @enderror" name="categories[]" value="{{$c->id}}"
+                               @if($post->categories->contains($c)) checked @endif>
+                        <label class="custom-control-label">
+                            {{$c->name}}
                         </label>
+
                     </div>
                 @endforeach
             </div>
