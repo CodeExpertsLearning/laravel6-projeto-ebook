@@ -11,15 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::namespace('Site')->name('site.')->group(function(){
+	Route::get('/', 'HomeController@index')->name('index');
+	Route::get('/post/{slug}', 'HomeController@single')->name('single');
+
+	Route::post('/post/comment', 'CommentController@saveComment')->name('single.comment');
 });
 
-Route::get('hello-world', 'HelloWorldController@index');
-
-Route::get('/post/{slug}', function($slug) {
-	return $slug;
-});
+//Route::get('hello-world', 'HelloWorldController@index');
+//
+//Route::get('/post/{slug}', function($slug) {
+//	return $slug;
+//});
 
 Route::resource('/users', 'UserController');
 

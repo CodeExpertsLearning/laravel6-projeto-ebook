@@ -28,7 +28,12 @@
 
         <div class="form-group">
             <label>Senha</label>
-            <input type="password" name="user[password]" class="form-control" placeholder="Se deseja atualizar sua senha digitie aqui a senha nova...">
+            <input type="password" name="user[password]" class="form-control @error('user.password') is-invalid @enderror" placeholder="Se deseja atualizar sua senha digitie aqui a senha nova...">
+            @error('user.password')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
         </div>
 
         <div class="form-group">
@@ -38,7 +43,14 @@
 
         <div class="form-group">
             <label>Avatar</label>
-            <input type="file" name="avatar">
+            <input type="file" name="avatar" class="form-control @error('avatar') is-invalid @enderror">
+
+            @error('user.email')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
+
         </div>
 
 

@@ -28,4 +28,12 @@ class UserProfileRequest extends FormRequest
 	        'user.email' => 'required|email'
         ];
     }
+
+	public function messages()
+	{
+		return [
+			'required' => 'Este campo é obritário',
+			'email'    => 'E-mail digitado é inválido'
+		];
+	}
 }

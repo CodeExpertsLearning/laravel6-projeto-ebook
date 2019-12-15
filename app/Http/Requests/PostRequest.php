@@ -31,4 +31,13 @@ class PostRequest extends FormRequest
 	        'categories'  => 'required'
         ];
     }
+
+    public function messages()
+    {
+		return [
+			'required' => 'Este campo é obritário',
+			'min'      => 'Sua descrição deve ter pelo menos :min caracteres',
+			'image'    => 'Imagem inválida'
+		];
+    }
 }
