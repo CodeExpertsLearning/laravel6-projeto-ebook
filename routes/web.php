@@ -20,6 +20,8 @@ Route::namespace('Site')->name('site.')->group(function(){
 	Route::get('/post/{slug}', 'HomeController@single')->name('single');
 
 	Route::post('/post/comment', 'CommentController@saveComment')->name('single.comment');
+
+	Route::get('/category/{slug}', 'CategoryController@index')->name('category');
 });
 
 //Route::get('hello-world', 'HelloWorldController@index');

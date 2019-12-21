@@ -24,6 +24,11 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ route('site.index') }}">Home</a>
                     </li>
+                    @foreach($categories  as $category)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('site.category', ['slug' => $category->slug]) }}">{{$category->name}}</a>
+                    </li>
+                    @endforeach
                 </ul>
         </div>
 
