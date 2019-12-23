@@ -31,11 +31,6 @@
         </div>
 
         <div class="form-group">
-            <label>Slug</label>
-            <input type="text" name="slug" class="form-control" value="{{$post->slug}}">
-        </div>
-
-        <div class="form-group">
             <label>Foto de Capa</label>
             <input type="file" name="thumb" class="form-control  @error('thumb') is-invalid @enderror">
             @error('thumb')
